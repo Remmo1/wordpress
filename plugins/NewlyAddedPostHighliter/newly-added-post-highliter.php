@@ -35,16 +35,16 @@ function naph_admin_page() {
 
     //display admin page
 ?>
-        <div class="wrap">
-            <h1>Newly Added Post Highliter</h1>
-            <form name="naph_form" method="post">
-                <input type="hidden" name="naph_do_change" value="Y">
-                <p>Highlight post title for
-                    <input type="number" name="naph_days" min="0" max="30" value="<?php echo $opDays ?>"> days
-                </p>
-            <p class="submit"><input type="submit" value="Submit"></p>
-            </form>
-        </div>
+    <div class="wrap">
+        <h1>Newly Added Post Highliter</h1>
+        <form name="naph_form" method="post">
+            <input type="hidden" name="naph_do_change" value="Y">
+            <p>Highlight post title for
+                <input type="number" name="naph_days" min="0" max="30" value="<?php echo $opDays ?>"> days
+            </p>
+        <p class="submit"><input type="submit" value="Submit"></p>
+        </form>
+    </div>
 <?php
 }
 
@@ -72,3 +72,5 @@ function naph_register_styles(){
     wp_enqueue_style('naph_styles');
 }
 add_action('init', 'naph_register_styles');
+
+define( 'WP_DEBUG', true );
