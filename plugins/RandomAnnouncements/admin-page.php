@@ -10,8 +10,9 @@ function announcements_page_handler() {
 
     $message = '';
     if ('delete' === $table->current_action()) {
-        error_log(implode('|', $_REQUEST));
-        $message = '<div class="updated below-h2" id="message"><p>' . sprintf('Items deleted: %d', count($_REQUEST['html'])) . '</p></div>';
+        $ids = isset($_REQUEST['id']) ? $_REQUEST['id'] : array();
+        $deleted_count = is_array($ids) ? count($ids) : 1;
+        $message = '<div class="updated below-h2" id="message"><p>' . sprintf('Items deleted: %d', $deleted_count) . '</p></div>';
     }
     ?>
     <div class="wrap">
@@ -58,7 +59,7 @@ function announcements_page_add_form() {
     ?>
 <div class="wrap">
     <div class="icon32 icon32-posts-post" id="icon-edit"><br></div>
-    <h2>'Announcement<a class="add-new-h2"
+    <h2>Announcement<a class="add-new-h2"
                                 href="<?php echo get_admin_url(get_current_blog_id(), 'admin.php?page=announcements');?>">Back to list</a>
     </h2>
 

@@ -20,23 +20,27 @@ class Announcements_List_Table extends WP_List_Table {
     }
     
     function column_html($item) {
-        return '<em>' . $this->column_default($item, 'html') . '</em>';
-    }
-    
-    function column_name($item) {
         $actions = array(
             'edit' => sprintf('<a href="?page=announcements_form&id=%s">%s</a>', $item['id'], 'Edit'),
             'delete' => sprintf('<a href="?page=%s&action=delete&id=%s">%s</a>', $_REQUEST['page'], $item['id'], 'Delete'),
         );
 
         return sprintf('%s %s',
-            $item['title'],
-            $this->row_actions($actions)
+            $item['html'],
+            $this->row_actions($actions, true)
+        );
+    }
+
+    function column_cb($item) {
+        return sprintf(
+            '<input type="checkbox" name="id[]" value="%s" />',
+            $item['id']
         );
     }
 
     function get_columns() {
         $columns = array(
+            'cb' => '<input type="checkbox" />',
             'title' => 'Title',
             'html' => 'Text',
         );
@@ -48,6 +52,13 @@ class Announcements_List_Table extends WP_List_Table {
             'delete' => 'Delete'
         );
         return $actions;
+    }
+
+    function get_sortable_columns() {
+        return array(
+            'title' => array('title', true),
+            'text' => array('text', false),
+        );
     }
 
     function process_bulk_action() {
