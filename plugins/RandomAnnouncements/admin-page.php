@@ -44,9 +44,10 @@ function announcements_page_add_form() {
         'html' => '',
     );
 
+    $item = shortcode_atts($default, $_REQUEST);
+
     if (wp_verify_nonce($_REQUEST['nonce'], basename(__FILE__))) {
-        $item = shortcode_atts($default, $_REQUEST);
-        $result = $wpdb->insert($table_name, $item);
+        $result = $wpdb->replace($table_name, $item);
         $item['id'] = $wpdb->insert_id;
         if ($result) {
             $message = 'Item was successfully saved';
