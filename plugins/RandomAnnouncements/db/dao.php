@@ -25,8 +25,8 @@ class Announcements_List_Table extends WP_List_Table {
     
     function column_name($item) {
         $actions = array(
-            'edit' => sprintf('<a href="?page=announcements_form&id=%s">%s</a>', $item['id'], __('Edit', 'announcements')),
-            'delete' => sprintf('<a href="?page=%s&action=delete&id=%s">%s</a>', $_REQUEST['page'], $item['id'], __('Delete', 'announcements')),
+            'edit' => sprintf('<a href="?page=announcements_form&id=%s">%s</a>', $item['id'], 'Edit'),
+            'delete' => sprintf('<a href="?page=%s&action=delete&id=%s">%s</a>', $_REQUEST['page'], $item['id'], 'Delete'),
         );
 
         return sprintf('%s %s',
@@ -37,8 +37,8 @@ class Announcements_List_Table extends WP_List_Table {
 
     function get_columns() {
         $columns = array(
-            'title' => __('Title', 'announcements'),
-            'html' => __('Html content', 'announcements'),
+            'title' => 'Title',
+            'html' => 'Text',
         );
         return $columns;
     }

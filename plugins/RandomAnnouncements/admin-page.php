@@ -11,13 +11,13 @@ function announcements_page_handler() {
     $message = '';
     if ('delete' === $table->current_action()) {
         error_log(implode('|', $_REQUEST));
-        $message = '<div class="updated below-h2" id="message"><p>' . sprintf(__('Items deleted: %d', 'announcements'), count($_REQUEST['html'])) . '</p></div>';
+        $message = '<div class="updated below-h2" id="message"><p>' . sprintf('Items deleted: %d', count($_REQUEST['html'])) . '</p></div>';
     }
     ?>
     <div class="wrap">
 
     <div class="icon32 icon32-posts-post" id="icon-edit"><br></div>
-    <h2><?php _e('Announcements', 'announcements')?> <a class="add-new-h2" href="<?php echo get_admin_url(get_current_blog_id(), 'admin.php?page=announcements_form');?>"><?php _e('Add new', 'announcements')?></a>
+    <h2>Announcements <a class="add-new-h2" href="<?php echo get_admin_url(get_current_blog_id(), 'admin.php?page=announcements_form');?>">Add new</a>
     </h2>
     <?php echo $message; ?>
 
@@ -48,9 +48,9 @@ function announcements_page_add_form() {
         $result = $wpdb->insert($table_name, $item);
         $item['id'] = $wpdb->insert_id;
         if ($result) {
-            $message = __('Item was successfully saved', 'announcements');
+            $message = 'Item was successfully saved';
         } else {
-            $notice = __('There was an error while saving item', 'announcements');
+            $notice = 'There was an error while saving item';
         }
     }
     add_meta_box('announcement_form_meta_box', 'Announcement data', 'announcements_form_meta_box_handler', 'announcement', 'normal', 'default');
@@ -58,8 +58,8 @@ function announcements_page_add_form() {
     ?>
 <div class="wrap">
     <div class="icon32 icon32-posts-post" id="icon-edit"><br></div>
-    <h2><?php _e('Announcement', 'announcements')?> <a class="add-new-h2"
-                                href="<?php echo get_admin_url(get_current_blog_id(), 'admin.php?page=announcements');?>"><?php _e('back to list', 'announcements')?></a>
+    <h2>'Announcement<a class="add-new-h2"
+                                href="<?php echo get_admin_url(get_current_blog_id(), 'admin.php?page=announcements');?>">Back to list</a>
     </h2>
 
     <?php if (!empty($notice)): ?>
@@ -77,7 +77,7 @@ function announcements_page_add_form() {
             <div id="post-body">
                 <div id="post-body-content">
                     <?php do_meta_boxes('announcement', 'normal', $item); ?>
-                    <input type="submit" value="<?php _e('Save', 'announcements')?>" id="submit" class="button-primary" name="submit">
+                    <input type="submit" value="Save" id="submit" class="button-primary" name="submit">
                 </div>
             </div>
         </div>
@@ -93,20 +93,20 @@ function announcements_form_meta_box_handler($item) {
     <tbody>
     <tr class="form-field">
         <th valign="top" scope="row">
-            <label for="title"><?php _e('Title', 'announcements')?></label>
+            <label for="title">Title</label>
         </th>
         <td>
             <input id="title" name="title" type="text" style="width: 95%" value="<?php echo esc_attr($item['title'])?>"
-                    size="50" class="code" placeholder="<?php _e('Title', 'announcements')?>" required>
+                    size="50" class="code" placeholder="Title" required>
         </td>
     </tr>
     <tr class="form-field">
         <th valign="top" scope="row">
-            <label for="html"><?php _e('HTML', 'announcements')?></label>
+            <label for="html">HTML</label>
         </th>
         <td>
             <input id="html" name="html" type="text" style="width: 95%; resize: vertical" value="<?php echo esc_attr($item['html'])?>"
-                    size="50" class="code" placeholder="<?php _e('HTML', 'announcements')?>" required>
+                    size="50" class="code" placeholder="HTML" required>
         </td>
     </tr>
     </tbody>

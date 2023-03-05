@@ -19,9 +19,9 @@ register_activation_hook(__FILE__, 'create_announcements_table');
 register_uninstall_hook(__FILE__, 'remove_announcements_table');
 
 function announcements_admin_menu() {
-    add_menu_page(__('Announcements', 'announcements'), __('Announcements', 'announcements'), 'activate_plugins', 'announcements', 'announcements_page_handler', 'dashicons-welcome-learn-more', '5');
-    add_submenu_page('announcements', __('Announcements', 'announcements'), __('Announcements', 'announcements'), 'activate_plugins', 'announcements', 'announcements_page_handler');
-    add_submenu_page('announcements', __('Add new', 'Announcements'), __('Add new', 'announcements'), 'activate_plugins', 'announcements_form', 'announcements_page_add_form');
+    add_menu_page('Announcements', 'Announcements', 'activate_plugins', 'announcements', 'announcements_page_handler', 'dashicons-bell', '5');
+    add_submenu_page('announcements', 'Announcements', 'Announcements', 'activate_plugins', 'announcements', 'announcements_page_handler');
+    add_submenu_page('announcements', 'Add new', 'Add new', 'activate_plugins', 'announcements_form', 'announcements_page_add_form');
 }
 
 add_action('admin_menu', 'announcements_admin_menu');
