@@ -1,6 +1,7 @@
 <?php
 
 require_once('db/dao.php');
+require_once('utils.php');
 
 function announcements_page_handler() {
     global $wpdb;
@@ -44,9 +45,9 @@ function announcements_page_add_form() {
         'html' => '',
     );
 
-    $item = shortcode_atts($default, $_REQUEST);
 
     if (wp_verify_nonce($_REQUEST['nonce'], basename(__FILE__))) {
+        $item = shortcode_atts($default, $_REQUEST);
         $result = $wpdb->replace($table_name, $item);
         $item['id'] = $wpdb->insert_id;
         if ($result) {
@@ -54,6 +55,9 @@ function announcements_page_add_form() {
         } else {
             $notice = 'There was an error while saving item';
         }
+    } else if(isset($_GET)) {
+        $id = $_REQUEST['id']; 
+        $item = isset($id) ? $wpdb->get_row("SELECT * FROM $table_name WHERE id=$id") : new stdClass();
     }
     add_meta_box('announcement_form_meta_box', 'Announcement data', 'announcements_form_meta_box_handler', 'announcement', 'normal', 'default');
 
@@ -73,12 +77,12 @@ function announcements_page_add_form() {
 
     <form id="form" method="POST">
         <input type="hidden" name="nonce" value="<?php echo wp_create_nonce(basename(__FILE__))?>"/>
-        <input type="hidden" name="id" value="<?php echo $item['id'] ?>"/>
+        <input type="hidden" name="id" value="<?php echo convert_object_to_array($item)['id'] ?>"/>
 
         <div class="metabox-holder" id="poststuff">
             <div id="post-body">
                 <div id="post-body-content">
-                    <?php do_meta_boxes('announcement', 'normal', $item); ?>
+                    <?php do_meta_boxes('announcement', 'normal', convert_object_to_array($item)); ?>
                     <input type="submit" value="Save" id="submit" class="button-primary" name="submit">
                 </div>
             </div>
